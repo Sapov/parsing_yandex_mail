@@ -73,8 +73,7 @@ def view_items(email: str):
     # def change_valid():
     #     '''Объявления меньше 5000 руб. и объявления больше 70 000 руб. нам не интересны'''
     #     with Session(engine) as session:
-    #         stmt = select(Avito).where(Avito.price <= 5000)
-    #         resp = session.scalars(stmt)
+    #         stmt = select(Avito).where(Avito.price <= 5000)    #         resp = session.scalars(stmt)
     #         for i in resp:
     #             print(i)
 
