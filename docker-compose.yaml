@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  webapp:
+    restart: always
+    build: ./
+    volumes:
+      - ./:/app
+    command: >
+      sh -c "python main.py"

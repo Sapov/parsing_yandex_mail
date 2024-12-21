@@ -7,10 +7,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    return render_template('index.html')
+
+
+@app.route('/go')
+def go():
     mail = Mail()
     mail.run()
-    return render_template('templates/index.html')
+    return render_template('templates/index1.html')
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
