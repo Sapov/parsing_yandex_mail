@@ -35,37 +35,37 @@ class Mail:
                 # print('Message %s\n%s\n' % (num, data[0][1]))
                 msg = email.message_from_bytes(data[0][1])
                 self.mail_letter_from = msg["Return-path"]  # e-mail отправителя
-                with open(f'mail_box/{num}_mail_.txt', 'w') as file:
+                # with open(f'mail_box/{num}_mail_.txt', 'w') as file:
 
-                    print(f'[Почта отправителя]: {self.mail_letter_from}')
-                    payload = msg.get_payload()
-                    for part in msg.walk():
-                        if part.get_content_maintype() == 'text' and part.get_content_subtype() == 'plain':
-                            try:
-                                self.msg_mail_text = base64.b64decode(part.get_payload()).decode()
-                                file.write(f'{base64.b64decode(part.get_payload()).decode()} \n')
-                                st = self.msg_mail_text
-                                lst = st.split()
-                                self.msg_mail_text = ' '.join(lst)
+                print(f'[Почта отправителя]: {self.mail_letter_from}')
+                payload = msg.get_payload()
+                for part in msg.walk():
+                    if part.get_content_maintype() == 'text' and part.get_content_subtype() == 'plain':
+                        try:
+                            self.msg_mail_text = base64.b64decode(part.get_payload()).decode()
+                            # file.write(f'{base64.b64decode(part.get_payload()).decode()} \n')
+                            st = self.msg_mail_text
+                            lst = st.split()
+                            self.msg_mail_text = ' '.join(lst)
 
-                                tel_lst = self.search_phone()
-                                mail_lst = self.search_mail_in_body()
-                                name = self.__search_name()
+                            tel_lst = self.search_phone()
+                            mail_lst = self.search_mail_in_body()
+                            name = self.__search_name()
 
-                                ddata = {
-                                    'email': self.mail_letter_from,
-                                    'name': list(set(name)),
-                                    'email_in_body': list(set(mail_lst)),
-                                    'body': self.msg_mail_text,
-                                    'phones': tel_lst,
-                                }
-                                print(f'DATA{ddata}')
-                                self.ddata.append(ddata)
-                                self.__data_save()
-                                create_items(ddata)
-                                # print(f'self.ddata{self.ddata}')
-                            except Exception as Ex:
-                                print(Ex)
+                            ddata = {
+                                'email': self.mail_letter_from,
+                                'name': list(set(name)),
+                                'email_in_body': list(set(mail_lst)),
+                                'body': self.msg_mail_text,
+                                'phones': tel_lst,
+                            }
+                            print(f'DATA{ddata}')
+                            self.ddata.append(ddata)
+                            self.__data_save()
+                            create_items(ddata)
+                            # print(f'self.ddata{self.ddata}')
+                        except Exception as Ex:
+                            print(Ex)
         except Exception as Ex:
             print(Ex)
 
