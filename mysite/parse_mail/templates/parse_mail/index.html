@@ -12,10 +12,9 @@
   <form action = "{% url 'mail:run_parse' %}" method = 'post'>
 {% csrf_token %}
 {{ form.as_p }}
-<button type="submit">Добавить</button>
+<button type="submit" class="btn btn-primary">Начать</button>
 </form>
 
-    <button type="button" class="btn btn-primary">Начать</button>
 
 
 </div>
