@@ -3,9 +3,11 @@ version: "3"
 services:
   webapp:
     restart: always
-    build: ./
+    build: .
     volumes:
       - bd:/app/bd
+      - /:/app
+
     command: >
       sh -c "python main.py"
   volumes:
