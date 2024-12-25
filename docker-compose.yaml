@@ -3,9 +3,13 @@ version: '3.8'
 services:
   web:
     build: .
-    command: python mysite/manage.py runserver 0.0.0.0:8000
+    command: >
+      bash -c "mysite/manage.py makemigrations && mysite/manage.py migrate && gunicorn -b 0.0.0.0:8000 mysite.wsgi:application"
+    restart: always
+
+#    command: python mysite/manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/app
+      - .:/django
     ports:
       - 8000:8000
     env_file:

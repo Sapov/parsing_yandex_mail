@@ -1,6 +1,8 @@
 # pull official base image
-FROM python:3.9.6-alpine
-#SHELL ["/bin/bash", "-c"]
+#FROM python:3.9.6-alpine
+FROM python:3.10.4
+
+SHELL ["/bin/bash", "-c"]
 
 # set work directory
 WORKDIR /django
