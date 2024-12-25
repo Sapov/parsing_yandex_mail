@@ -1,5 +1,3 @@
-from flask import Flask, render_template
-
 import alchemy
 from mail import Mail
 

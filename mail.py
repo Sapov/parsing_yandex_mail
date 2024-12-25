@@ -113,7 +113,6 @@ class Mail:
         '''Поиск имен после слов с Уважением'''
         pass
 
-
     def __data_save(self):
         with open('old_items.json', 'w', encoding='utf-8') as f:
             json.dump(self.ddata, f, ensure_ascii=False, indent=4)
