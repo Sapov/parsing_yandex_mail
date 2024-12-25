@@ -4,7 +4,7 @@ services:
   web:
     build: .
     command: >
-      bash -c "mysite/manage.py makemigrations && mysite/manage.py migrate && gunicorn -b 0.0.0.0:8000 mysite.wsgi:application"
+      bash -c "mysite/manage.py makemigrations && mysite/manage.py migrate && python mysite/manage.py runserver 0.0.0.0:8000"
     restart: always
 
 #    command: python mysite/manage.py runserver 0.0.0.0:8000
