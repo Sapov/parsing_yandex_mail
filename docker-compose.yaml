@@ -5,6 +5,8 @@ services:
     restart: always
     build: ./
     volumes:
-      - ./:/app
+      - bd:/app/bd
     command: >
       sh -c "python main.py"
+  volumes:
+    bd:
