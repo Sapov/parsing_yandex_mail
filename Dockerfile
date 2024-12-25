@@ -1,7 +1,11 @@
-FROM python:3.9
-
+#docker build . -t mail  docker run -d docker-dnevnic.ru && docker update --restart unless-stopped docker-dnevnic.ru
+# docker run -v MAIL:/app -it e8d2ef99e3ff
+FROM python:alpine
+ #создаем директорию
 WORKDIR /app
-
-COPY ./requirements.txt ./
+ #копируем все в директорию
+COPY . /app
+#устанавливаем зависимости
 RUN pip install -r requirements.txt
-COPY . .
+
+CMD [ "python3", "main.py" ]
