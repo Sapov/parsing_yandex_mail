@@ -34,23 +34,6 @@ class BaseMail(Base):
         return f"User(id={self.id!r}, name={self.name!r}, fullname={self.item_id!r})"
 
 
-def create_items(data: dict):
-    '''Добавляем запись, если такая есть ловим искоючение'''
-    try:
-        with Session(engine) as session:
-            items_mail = BaseMail(
-                email=data['email'],
-                name=' '.join(data['name']),
-                email_in_body=' '.join(data['email_in_body']),
-                phones=' '.join(data['phones']),
-            )
-
-            session.add(items_mail)
-            session.commit()
-    except Exception as err:
-        print('--ERROR--', str(err))
-
-
 def fetch_id(email: str):
     '''проверяем уникальность объявления в базе'''
     with Session(engine) as session:

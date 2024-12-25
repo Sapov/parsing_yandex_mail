@@ -6,8 +6,7 @@ import os
 import re
 
 from dotenv import load_dotenv, find_dotenv
-
-from alchemy import create_items
+from .models import BaseMail
 
 load_dotenv(find_dotenv())
 
@@ -62,7 +61,7 @@ class Mail:
                             print(f'DATA{ddata}')
                             self.ddata.append(ddata)
                             self.__data_save()
-                            create_items(ddata)
+                            self.create_items(ddata)
                             # print(f'self.ddata{self.ddata}')
                         except Exception as Ex:
                             print(Ex)
@@ -114,8 +113,17 @@ class Mail:
         pass
 
     def __data_save(self):
-        with open('old_items.json', 'w', encoding='utf-8') as f:
+        with open('../../old_items.json', 'w', encoding='utf-8') as f:
             json.dump(self.ddata, f, ensure_ascii=False, indent=4)
+
+    def create_items(self, data: dict):
+        '''Добавляем запись, если такая есть ловим искоючение'''
+        BaseMail.objects.get_or_create(
+            email=data['email'],
+            name=' '.join(data['name']),
+            email_in_body=' '.join(data['email_in_body']),
+            phones=' '.join(data['phones'])
+        )
 
     def run(self):
         self.__get_mail()
@@ -124,38 +132,3 @@ class Mail:
 if __name__ == '__main__':
     a = Mail()
     a.run()
-
-# def get_mail_list():
-#     password_mail = os.getenv('PASS_MAIL')
-#     mail_name = os.getenv('MAIL_NAME')
-#     mail = imaplib.IMAP4_SSL('imap.yandex.ru')
-#     mail.login(mail_name, password_mail)
-#     # lst_dir = mail.list()
-#     print(mail.list())  # Посмотреть список всех папок можно командой imap.list()
-#
-#     print(mail.select("Archive"))  # переходим в папку архив
-#     # _, count = mail.select("Archive") # переходим в папку архи    в
-#
-#     # print(mail.search(None, 'ALL')) # номера всех писеи
-#     typ, data = mail.search(None, 'ALL')  # номера всех писем
-#
-#     for num in data[0].split():
-#         typ, data = mail.fetch(num, '(RFC822)')
-#         # print('Message %s\n%s\n' % (num, data[0][1]))
-#         msg = email.message_from_bytes(data[0][1])
-#         letter_from = msg["Return-path"]  # e-mail отправителя
-#         with open(f'mail_box0/{num}_mail__{letter_from}__.txt', 'w') as file:
-#
-#             print(letter_from)
-#             payload = msg.get_payload()
-#             for part in msg.walk():
-#                 if part.get_content_maintype() == 'text' and part.get_content_subtype() == 'plain':
-#                     try:
-#                         print(base64.b64decode(part.get_payload()).decode())
-#                         file.write(f'{base64.b64decode(part.get_payload()).decode()} \n')
-#
-#                     except Exception as Ex:
-#                         print(Ex)
-#
-#
-# get_mail_list()

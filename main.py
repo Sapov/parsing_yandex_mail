@@ -1,7 +1,5 @@
 import alchemy
-from mail import Mail
-
-from alchemy import BaseMail
+from mysite.parse_mail.mail import Mail
 
 if __name__ == "__main__":
     alchemy.main()
